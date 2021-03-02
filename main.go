@@ -21,5 +21,12 @@ func main() {
 	route.POST("/book", controllers.CreateBook)
 	route.PATCH("/book/:id", controllers.UpdateBook)
 	route.DELETE("/book/:id", controllers.DeleteBook)
+
+	route.GET("/user/:id", controllers.GetUser)
+	route.GET("/users", controllers.GetAllUsers)
+	route.POST("/user", controllers.CreateUser)
+	route.PATCH("/user/:id", controllers.UpdateUser)
+	route.DELETE("/user/:id", controllers.DeleteUser)
+
 	route.Run()
 }
