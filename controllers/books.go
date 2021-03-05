@@ -18,6 +18,11 @@ type UpdateBookInput struct {
 	Year   int    `json:"year"`
 }
 
+type UserToBookInput struct {
+	UserID uint `json:"user_id" binding:"required"`
+	BookID uint `json:"book_id" binding:"required"`
+}
+
 func GetAllBooks(context *gin.Context) {
 	var books []models.Book
 	models.DB.Find(&books)
@@ -78,4 +83,21 @@ func DeleteBook(context *gin.Context) {
 	models.DB.Delete(&book)
 
 	context.JSON(http.StatusOK, gin.H{"book": true})
+}
+
+func UserToBook(context *gin.Context) {
+
+	var input UserToBookInput
+	if err := context.ShouldBindJSON(&input); err != nil {
+		context.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+	userToBook := models.UsersBooks{
+		UserId: input.UserID,
+		BookId: input.BookID,
+	}
+	models.DB.Create(&userToBook)
+
+	context.JSON(http.StatusOK, gin.H{"status": true})
+
 }

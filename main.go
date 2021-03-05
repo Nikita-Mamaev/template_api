@@ -28,5 +28,6 @@ func main() {
 	route.PATCH("/user/:id", controllers.UpdateUser)
 	route.DELETE("/user/:id", controllers.DeleteUser)
 
+	route.POST("usertobook", controllers.UserToBook)
 	route.Run()
 }

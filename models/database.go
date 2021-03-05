@@ -13,7 +13,7 @@ func ConnectDB() {
 		panic("DataBase error")
 	}
 
-	db.AutoMigrate(&Book{}, &User{})
+	db.AutoMigrate(&Book{}, &User{}, &UsersBooks{})
 
 	DB = db
 }
