@@ -101,3 +101,12 @@ func UserToBook(context *gin.Context) {
 	context.JSON(http.StatusOK, gin.H{"status": true})
 
 }
+func GetUserBooks(context *gin.Context) {
+	var book models.UsersBooks
+	if err := models.DB.Where("id = ?", context.Param("id")).First(&book).Error; err != nil {
+		context.JSON(http.StatusBadRequest, gin.H{"error": "Пользователь не найден"})
+		return
+	}
+
+	context.JSON(http.StatusOK, gin.H{"books": book})
+}
